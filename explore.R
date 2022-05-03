@@ -1,5 +1,5 @@
 # 1. provide a set of sub-coalitions (list of binary vectors) 
-# 2. provide a partial order (list of less-than indices)
+# 2. provide parents in the partial order (list of parent indices)
 # 3. provide a characteristic function on 1
 # 4. compute the marginal contributions using 1 and 2
 # 5. provide a weighting distribution or vector of weights on 3
@@ -15,11 +15,20 @@ source("helpers.R")
 N <- 3
 game <- powerset_coalitions(N)
 
-# 2. partial order --------------------------------------------------------
+# 2. partial order parents ------------------------------------------------
 
-game$order <- powerset_order(game)
+game$parents <- powerset_parents(game)
 
 # 3. characteristic function ----------------------------------------------
 
-game$v <- v_equal_value_game(game)
+game$v <- v_equal_value(game)
+
+# 4. compute marginal contributions ---------------------------------------
+
+game$marginals <- marginal_contributions(game)
+#View(game)
+
+# 5. Provide weighting distribution ---------------------------------------
+
+
 
