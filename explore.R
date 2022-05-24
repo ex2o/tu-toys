@@ -21,6 +21,8 @@ mu > 0 # check mu is positive
 game <- sort_by_size(game)
 M <- powerset_lattice_weights(game,w)
 V <- matrix(game$v)
+
+# Compute the solution
 sol <- rep(NA, N)
 for (i in 1:N) {
   S_with_i <- game[[paste0("x",i)]] == 1
@@ -29,7 +31,13 @@ for (i in 1:N) {
 }
 sol; sum(sol); sum(sol) == mu
 
-# an alternative that avoids non-binary lattice matrix (for semivalues)
+# compute the share function
+shares <- sol/sum(sol)
+
+# compute the allocations
+shares*V[length(V)]
+
+# an alternative that avoids non-binary lattice matrix (for semivalues only)
 game <- sort_by_size(game)
 M <- powerset_lattice_binary(game)
 V <- matrix(game$v)
